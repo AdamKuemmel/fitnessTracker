@@ -5,7 +5,7 @@ const path = require("path");
 const express = require("express");
 const router = express.Router();
 
-//get route for the html page --index
+//get route for the home page --index
 router.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
 });
