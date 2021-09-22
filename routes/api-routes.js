@@ -7,14 +7,18 @@ const router = express.Router();
 router.get("/api/workouts", (req, res) => {
   db.Workout.find({})
     .then((workoutsDB) => {
-      console.log(workoutsDB);
+      console.log("here" + workoutsDB);
+
+      //mapp all workouts
       const workouts = workoutsDB.map((workout) => {
         console.log({ workout });
+        //reduce reutrns the sum of all elements in the exercise array
         const duration = workout.exercises.reduce((acc, next) => {
           return acc + next.duration;
         }, 0);
 
         return {
+          //toObject to return data to JS object
           totalDuration: duration,
           ...workout.toObject(),
         };
@@ -31,6 +35,7 @@ router.get("/api/workouts", (req, res) => {
 //put route to add exercise to workouts by ID,
 router.put("/api/workouts/:id", (req, res) => {
   console.log(req.body);
+  //finds a workout by id and updates
   db.Workout.findByIdAndUpdate(
     req.params.id,
     { $push: { exercises: req.body } },
@@ -43,8 +48,9 @@ router.put("/api/workouts/:id", (req, res) => {
       res.json(err);
     });
 });
-//post route
+//post route to create a workout
 router.post("/api/workouts", ({ body }, res) => {
+  //create a workout
   db.Workout.create(body)
     .then((dbWorkout) => {
       res.json(dbWorkout);
@@ -55,6 +61,7 @@ router.post("/api/workouts", ({ body }, res) => {
 });
 //get route
 router.get("/api/workouts/range", (req, res) => {
+  //gets all workouts for range function
   db.Workout.find({})
     .then((dbWorkout) => {
       res.json(dbWorkout);
