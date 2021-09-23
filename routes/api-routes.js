@@ -60,15 +60,26 @@ router.post("/api/workouts", ({ body }, res) => {
     });
 });
 //get route
-router.get("/api/workouts/range", (req, res) => {
-  //gets all workouts for range function
-  db.Workout.find({})
-    .then((dbWorkout) => {
-      res.json(dbWorkout);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+router.get("/api/workouts/range", async (req, res) => {
+  try {
+    const allWorkouts = await db.Workout.aggregate([
+      {
+        $addFields: {
+          totalDuration: { $sum: "$exercises.duration" },
+          totalWeight: { $sum: "$exercises.weight" },
+          totalSets: { $sum: "$exercises.sets" },
+          totalReps: { $sum: "$exercises.reps" },
+          totalDistance: { $sum: "$exercises.distance" },
+        },
+      },
+    ]);
+    // const allWorkouts = await db.Workout.find({});
+    console.log(allWorkouts);
+    return res.json(allWorkouts);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
+
 //module export
 module.exports = router;
