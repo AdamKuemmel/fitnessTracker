@@ -29,7 +29,7 @@ app.use(express.static("public"));
 app.use(require("./routes/html-routes"));
 app.use(require("./routes/api-routes"));
 
-mongoose.connect("mongodb://localhost/workout", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
