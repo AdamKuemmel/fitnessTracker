@@ -443,11 +443,11 @@ form > button {
   }
 }
 
-.navlogo {
+#navlogo {
   height: 10vh;
 }
 @media screen and (max-width: 990px) {
-  .navlogo {
+  #navlogo {
     height: 5vh;
   }
 }
