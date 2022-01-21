@@ -5,7 +5,8 @@
   margin: 0;
   padding: 0;
 }
-
+* {
+}
 html,
 body,
 .wrapper {
@@ -14,10 +15,10 @@ body,
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #888;
 }
 
 nav {
-  background-color: #5793fd;
   color: #ffffff;
   padding: 24px;
   line-height: 3;
@@ -103,7 +104,7 @@ input {
 }
 
 .wrapper {
-  background-color: #f2f8ff;
+  background-color: gray;
   padding-bottom: 100px;
 }
 
@@ -440,5 +441,14 @@ form > button {
   100% {
     opacity: 0;
     right: -320px;
+  }
+}
+
+.navlogo {
+  height: 10vh;
+}
+@media screen and (max-width: 990px) {
+  .navlogo {
+    height: 5vh;
   }
 }
